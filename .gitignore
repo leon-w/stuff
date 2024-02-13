@@ -1,5 +1,8 @@
 # python
 __pycache__/
 
+# rust
+target/
 
 *.pdf
+*.txt
