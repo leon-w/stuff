@@ -7,3 +7,5 @@ target/
 *.pdf
 *.txt
 *.srt
+
+web/__build__/
