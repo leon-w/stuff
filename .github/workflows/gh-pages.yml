@@ -8,9 +8,6 @@ on:
 
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: ./web
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -30,17 +27,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: '21.x'
-      - run: bash build_all.sh
+      - name: Build
+        run: bash build_all.sh
+        working-directory: ./web
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '__build__'
+          path: 'web/__build__'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
