@@ -14,7 +14,18 @@ function Background({ children }: { children: React.ReactNode }) {
     const { useToken } = theme;
     const { token } = useToken();
 
-    return <App style={{ backgroundColor: token.colorBgBase, height: "100vh", padding: "2vh 0" }}>{children}</App>;
+    return (
+        <App
+            style={{
+                backgroundColor: token.colorBgBase,
+                height: "100vh",
+                overflowY: "auto",
+                scrollbarWidth: "none",
+            }}
+        >
+            {children}
+        </App>
+    );
 }
 
 function CountdownApp() {
@@ -80,7 +91,7 @@ function CountdownApp() {
                     vertical
                     justify={enabledCountdowns.length === 0 ? "center" : "space-evenly"}
                     align="center"
-                    style={{ height: "100%", overflowY: "auto" }}
+                    style={{ height: "100%" }}
                 >
                     {enabledCountdowns.length > 0 ? (
                         <TimerProvider>
