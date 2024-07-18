@@ -14,7 +14,7 @@ function Background({ children }: { children: React.ReactNode }) {
     const { useToken } = theme;
     const { token } = useToken();
 
-    return <App style={{ backgroundColor: token.colorBgBase, height: "100vh" }}>{children}</App>;
+    return <App style={{ backgroundColor: token.colorBgBase, height: "100vh", padding: "2vh 0" }}>{children}</App>;
 }
 
 function CountdownApp() {
@@ -80,7 +80,7 @@ function CountdownApp() {
                     vertical
                     justify={enabledCountdowns.length === 0 ? "center" : "space-evenly"}
                     align="center"
-                    style={{ height: "100vh" }}
+                    style={{ height: "100%", overflowY: "auto" }}
                 >
                     {enabledCountdowns.length > 0 ? (
                         <TimerProvider>
