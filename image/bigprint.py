@@ -82,6 +82,7 @@ def create_print_pages(file, output_size, page_size, ppc, output, outer_padding=
             pages[i].append(page)
             index += 1
 
+    # create a preview
     preview = Image.new("RGB", (full_w_px + n_cols + 1, full_h_px + n_rows + 1), "black")
     draw = ImageDraw.Draw(preview)
     for i in range(n_cols):
@@ -89,7 +90,6 @@ def create_print_pages(file, output_size, page_size, ppc, output, outer_padding=
             x = i * page_w_px + i
             y = j * page_h_px + j
             preview.paste(pages[i][j], (x, y))
-            # draw.rectangle([x, y, x + page_w_px, y + page_h_px], outline="white")
 
     preview.show()
 
