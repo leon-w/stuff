@@ -22,7 +22,7 @@ def search_subtitles(subtitle_files, search_term, d=1):
         l = 0
         for s in segments:
             c = s.content.replace("\n", " ").strip()
-            c = re.sub(r"<.*?>|\{.*?\}", "", c)
+            c = re.sub(r"<.*?>|\{.*?\}|- ", "", c)
             content_all.append(c)
             timestamps.append(
                 (
