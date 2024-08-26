@@ -4,6 +4,7 @@ Useful if you want to find a specific scene in a movie or TV show.
 """
 
 import datetime
+import os
 import re
 from argparse import ArgumentParser
 
@@ -12,6 +13,7 @@ from fuzzysearch import find_near_matches
 
 
 def search_subtitles(subtitle_files, search_term, d=1):
+    w, _ = os.get_terminal_size()
     first = True
     for subtitle_file in subtitle_files:
         with open(subtitle_file, "r") as f:
@@ -52,14 +54,20 @@ def search_subtitles(subtitle_files, search_term, d=1):
             print(f"Found \033[91m{len(matches)}\033[0;0m match(es) in \033[97m`{subtitle_file}`\033[0;0m:")
             for match in matches:
                 first = False
-                before = content_all[max(0, match.start - 30) : match.start]
-                after = content_all[match.end : min(len(content_all), match.end + 30)]
+
                 target = content_all[match.start : match.end]
 
                 start_time = find_timestamp(match.start)[0]
                 end_time = find_timestamp(match.end - 1)[1]
+                time_formatted = f"[{start_time} -> {end_time}]"
 
-                print(f">> \033[93m[{start_time} -> {end_time}]\033[0;0m {before}\033[92;1;4m{target}\033[0;0m{after}")
+                remaining = w - len(time_formatted) - len(target) - 4
+                remaining_before = remaining // 2
+                remaining_after = remaining - remaining_before
+                before = content_all[max(0, match.start - remaining_before) : match.start]
+                after = content_all[match.end : min(len(content_all), match.end + remaining_after)]
+
+                print(f">> \033[93m{time_formatted}\033[0;0m {before}\033[92;1;4m{target}\033[0;0m{after}")
 
 
 if __name__ == "__main__":
