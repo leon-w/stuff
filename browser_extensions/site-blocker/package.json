@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@mui/material": "^5.14.10",
+    "match-url-wildcard": "^0.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },

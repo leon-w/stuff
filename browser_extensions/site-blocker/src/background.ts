@@ -1,4 +1,6 @@
-const patterns: RegExp[] = [];
+import matchUrl from "match-url-wildcard";
+
+const patterns: string[] = [];
 
 function loadPatterns() {
     chrome.storage.local.get(["urlPatterns"], result => {
@@ -8,12 +10,11 @@ function loadPatterns() {
 
             for (const line of result.urlPatterns.split("\n")) {
                 const pattern = line.trim();
-                if (pattern.startsWith("#")) {
+                if (pattern.startsWith("#") || pattern === "") {
                     continue;
                 }
 
-                const re = new RegExp(pattern.replace(/([.?+^$[\]\\(){}|/-])/g, "\\$1").replace(/\*/g, ".*"));
-                patterns.push(re);
+                patterns.push(pattern);
             }
         }
     });
@@ -28,7 +29,7 @@ chrome.runtime.onMessage.addListener(request => {
 chrome.tabs.onUpdated.addListener((tabId, _, tab) => {
     const url = tab.url;
     if (url) {
-        if (patterns.some(pattern => pattern.test(url))) {
+        if (patterns.some(pattern => matchUrl(url, pattern))) {
             // Close the tab
             chrome.tabs
                 .remove(tabId)
