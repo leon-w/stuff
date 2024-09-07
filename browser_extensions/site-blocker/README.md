@@ -2,7 +2,7 @@
 
 A simple browser extension that blocks access to a list of websites.
 
-![](browser_extensions/site-blocker/images/screenshot.png)
+![](images/screenshot.png)
 
 ## How it works
 
