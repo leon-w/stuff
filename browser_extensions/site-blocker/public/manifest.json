@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Site Blocker",
+  "description": "Block sites to increase productivity.",
+  "version": "1.0",
+  "icons": {
+    "160": "icon.png"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "permissions": [
+    "storage",
+    "notifications",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
